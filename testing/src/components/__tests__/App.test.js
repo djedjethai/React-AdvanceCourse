@@ -11,6 +11,10 @@ beforeEach(() => {
     wrapped = shallow(<App />);
 })
 
+afterEach(() => {
+    wrapped.unmount();
+});
+
 test('shows a comment box', () => {
     expect(wrapped.find(CommentBox).length).toBe(1);
 });
