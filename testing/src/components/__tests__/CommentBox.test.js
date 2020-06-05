@@ -25,29 +25,27 @@ test('show a textArea and a button', () => {
     expect(wrapped.find('button').length).toBe(1);
 });
 
-test('user can input text', () => {
-    // simulate() take the name of the event we are trying
-    // we use the real html event's name (not the react one)
-    // the object in simulate() will be merge as the value of the component's state via the event obj
-    wrapped.find('textarea').simulate('change', {target: {value: 'new comment'}});
-    // update() force the re-render of the component (as it s async)
-    wrapped.update();
-    // 'value' is the key we just passed in the simulate()
-    expect(wrapped.find('textarea').prop('value')).toEqual('new comment');
-});
+describe('the text area', () => {
+    beforeEach(() => {
+        // simulate() take the name of the event we are trying
+        // we use the real html event's name (not the react one)
+        // the object in simulate() will be merge as the value of the component's state via the event obj
+        wrapped.find('textarea').simulate('change', {target: {value: 'new comment'}});
+        // update() force the re-render of the component (as it s async)
+        wrapped.update();
+    });
 
-test('when submit textArea get empty', () => {
-    // we find text area
-    wrapped.find('textarea').simulate('change', {target: {value: 'new comment'}});
+    test('user can input text', () => {
+        // 'value' is the key we just passed in the simulate()
+        expect(wrapped.find('textarea').prop('value')).toEqual('new comment');
+    });
 
-    // click submit
-    wrapped.find('form').simulate('submit');
-
-    // update component
-    wrapped.update();
-
-    // verif target value
-    expect(wrapped.find('textarea').text()).toBe('');
-
-    // find 'textarea' && verif is empty
+    test('when submit textArea get empty', () => {
+        // click submit
+        wrapped.find('form').simulate('submit');
+        // verif target value, WORKS
+        // expect(wrapped.find('textarea').text()).toBe('');
+        // the teacher solution
+        expect(wrapped.find('textarea').prop('value')).toEqual('');
+    });
 });
