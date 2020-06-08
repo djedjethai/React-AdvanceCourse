@@ -1,18 +1,19 @@
+import { ADD_COMMENT } from 'components/actions/types';
+
 const initialState = {
     comments: []
 }
 
-const addComment = (action) => {
-
-    return [action.comment]; 
+const pushComment = (state, action) => {
+    return { ...state, comments: state.comments.concat([action.payload]) }
 };
 
 
 export default function(state = initialState, action) {
     
     switch (action.type) {
-        case 'ADD_COMMENT':
-            return { ...state, comments: state.comments.concat(addComment(action)) }
+        case ADD_COMMENT:
+            return pushComment(state, action);
         default:
             return state;
     }

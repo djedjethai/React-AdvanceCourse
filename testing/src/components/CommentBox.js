@@ -11,10 +11,8 @@ class CommentBox extends Component {
     formSubmitHandler = (event) => {
         event.preventDefault();
 
-        // TODO - call an action creator 
-        // and save the comment
+        this.props.getComment(this.state.comment);
         
-        this.setState({ comment: '' });
     }
 
     render() {

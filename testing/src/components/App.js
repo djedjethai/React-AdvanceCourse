@@ -3,18 +3,15 @@ import { connect } from 'react-redux';
 
 import CommentList from 'components/CommentList';
 import CommentBox from 'components/CommentBox';
+import { addComment } from 'components/actions/index';
 
 class App extends Component {
 
-    // state = {
-    //     comments: []
-    // }
-    
 
     render() {
         return (
             <div>
-                <CommentBox  getComment={this.props.commentHandler.bind(this, comment)}/>
+                <CommentBox  getComment={comment => this.props.commentHandler(comment)}/>
                 <CommentList comments={this.props.comments} />
             </div>
         );
@@ -26,7 +23,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return { commentHandler: (comment) => dispatch({type: 'ADD_COMMENT', comment: comment}) }; 
+    
+    return { commentHandler: (comment) =>  dispatch(addComment(comment)) }; 
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

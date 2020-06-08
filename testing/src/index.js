@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 // by default node will import the index.js file
-import reducers from '/reducers'
+import reducers from 'reducers'
 
 import App from 'components/App';
 
