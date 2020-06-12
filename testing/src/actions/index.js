@@ -1,4 +1,4 @@
-import { ADD_COMMENT } from 'components/actions/types';
+import { ADD_COMMENT } from 'actions/types';
 
 export function addComment(comment) {
     return {

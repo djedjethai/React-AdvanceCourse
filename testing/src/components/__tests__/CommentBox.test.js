@@ -2,12 +2,17 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import CommentBox from 'components/CommentBox';
+import Root from 'Root';
 
 // here we use Full DOM ่just for show
 // NORMALY WE SOULD USE SHALLOW as we test only this component
 let wrapped;
 beforeEach(() => {
-    wrapped = mount(<CommentBox />);
+    wrapped = mount(
+        <Root>
+            <CommentBox />
+        </Root>
+    );
 });
 
 afterEach(() => {
@@ -16,7 +21,7 @@ afterEach(() => {
 
 test('show a div', () => {
     // const wrapped = mount(<CommentBox />);
-    expect(wrapped.find('div').length).toBe(1);
+    expect(wrapped.find('div').length).toBe(2);
 });
 
 test('show a textArea and a button', () => {
@@ -26,6 +31,7 @@ test('show a textArea and a button', () => {
 });
 
 describe('the text area', () => {
+
     beforeEach(() => {
         // simulate() take the name of the event we are trying
         // we use the real html event's name (not the react one)

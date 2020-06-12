@@ -1,14 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Root from 'Root';
 
 import CommentBox from 'components/CommentBox';
 import CommentList from 'components/CommentList';
 import App from 'components/App';
 
+
 let wrapped;
+beforeEach(() => {
+    wrapped = shallow(
+        <Root>
+            <App />
+        </Root>
+    )
+})
 
 test('app component', () => {
-    wrapped = shallow(<App />)
     expect(wrapped.find(App).length).toBe(1);
 })
 

@@ -1,30 +1,34 @@
 import React, { Component }from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 import CommentList from 'components/CommentList';
 import CommentBox from 'components/CommentBox';
-import { addComment } from 'components/actions/index';
+// import * as actions from 'actions';
 
 class App extends Component {
 
+    state = {
+        comments: []
+    };
 
     render() {
         return (
             <div>
-                <CommentBox  getComment={comment => this.props.commentHandler(comment)}/>
-                <CommentList comments={this.props.comments} />
+                <CommentBox getComment={comment => this.setState({comments: [comment]})} />
+                <CommentList comments={this.state.comments} />
             </div>
         );
     };
 }
 
-const mapStateToProps = (state) => {
-   return { comments: state.comments }   
-};
+// const mapStateToProps = (state) => {
+//    return state    
+// };
 
-const mapDispatchToProps = (dispatch) => {
+// const mapDispatchToProps = (dispatch) => {
     
-    return { commentHandler: (comment) =>  dispatch(addComment(comment)) }; 
-};
+//     return { commentHandler: (comment) =>  dispatch(actions.addComment(comment)) }; 
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
