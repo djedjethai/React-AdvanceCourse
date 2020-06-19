@@ -15,9 +15,12 @@ class CommentBox extends Component {
 
         this.props.commentDipatch(this.state.comment)
         // this.props.getComment(this.state.comment);
-        this.setState({comment: ''});
-        
+        this.setState({comment: ''});  
     }
+
+    // buttonSubmit = (event) => {
+    //     this
+    // }
 
     render() {
 
@@ -35,6 +38,7 @@ class CommentBox extends Component {
                         <button type="submit">Submit comment</button>
                     </div>
                 </form>
+                <button onClick={this.props.fetchComments}>Fetch the comments</button>
             </div>
         );
     };
@@ -45,7 +49,10 @@ class CommentBox extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     
-    return { commentDipatch: (comment) =>  dispatch(actions.addComment(comment)) }; 
+    return { 
+        commentDipatch: (comment) =>  dispatch(actions.addComment(comment)),
+        fetchComments: () => dispatch(actions.fetchComments()) 
+    }; 
 };
 
 // export default CommentBox;
