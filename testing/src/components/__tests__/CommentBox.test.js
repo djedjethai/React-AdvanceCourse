@@ -24,10 +24,10 @@ test('show a div', () => {
     expect(wrapped.find('div').length).toBe(2);
 });
 
-test('show a textArea and a button', () => {
+test('show a textArea and a 2 buttons', () => {
     // const wrapper = mount(<CommentBox />);
     expect(wrapped.find('textarea').length).toBe(1);
-    expect(wrapped.find('button').length).toBe(1);
+    expect(wrapped.find('button').length).toBe(2);
 });
 
 describe('the text area', () => {

@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 
 import CommentList from 'components/CommentList';
 import CommentBox from 'components/CommentBox';
@@ -7,28 +8,21 @@ import CommentBox from 'components/CommentBox';
 
 class App extends Component {
 
-    state = {
-        comments: []
-    };
-
     render() {
         return (
             <div>
-                <CommentBox getComment={comment => this.setState({comments: [comment]})} />
-                <CommentList comments={this.state.comments} />
+		    {console.log(this.props.auth)}
+		    < Route path="/post" component={CommentBox} />
+		    < Route path="/" exact component={CommentList} />
             </div>
         );
     };
 }
 
-// const mapStateToProps = (state) => {
-//    return state    
-// };
+const mapStateToProps = (state) => {
+    return {
+	    auth: state.auth
+}}
 
-// const mapDispatchToProps = (dispatch) => {
-    
-//     return { commentHandler: (comment) =>  dispatch(actions.addComment(comment)) }; 
-// };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default App;
+export default connect(mapStateToProps, null)(App);

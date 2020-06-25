@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { AUTH_HANDLER } from '../actions/types';
 
 class CommentList extends Component {
 
@@ -12,6 +13,8 @@ class CommentList extends Component {
     render() {
         return(
             <div>
+		<button onClick={this.props.auth}>Login</button> 
+		<h4>Comment List</h4>
                 <ul>
                     {this.renderComment()}
                 </ul>
@@ -24,7 +27,13 @@ const mapStateToProps = state => {
     return {comments: state.comments}
 }
 
-export default connect(mapStateToProps, null)(CommentList);
+const mapDispatchToProps = (dispatch) => {
+	return { 
+		auth: () => dispatch({type: AUTH_HANDLER})
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentList);
 
 // export default (props) => {
 //     console.log('AFFICH_COMMENTS');

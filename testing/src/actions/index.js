@@ -17,3 +17,10 @@ export function fetchComments() {
         payload: comments
     }
 }
+
+// export function authHandler() {
+// 	return {
+// 		type: AUTH_HANDLER,
+
+// 	}
+// };
