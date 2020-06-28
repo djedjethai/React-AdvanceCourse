@@ -4,23 +4,37 @@ import { connect } from 'react-redux';
 import * as actions from 'actions';
 
 class CommentBox extends Component {
-    state = { comment: ''};
+	state = { comment: ''};
+	
+	componentDidMount() {
+		this.shouldNavigateAway();	
+	};
 
-    commentHandler = (event) => {
-        this.setState({ comment: event.target.value })
-    };
+	componentDidUpdate() {
+		this.shouldNavigateAway();
+	};
 
-    formSubmitHandler = (event) => {
-        event.preventDefault();
+	shouldNavigateAway() {
+		if (!this.props.auth.auth) {
+			this.props.history.push('/');
+		}
+	}
 
-        this.props.commentDipatch(this.state.comment)
-        // this.props.getComment(this.state.comment);
-        this.setState({comment: ''});  
-    }
+	commentHandler = (event) => {
+	this.setState({ comment: event.target.value })
+	};
 
-    // buttonSubmit = (event) => {
-    //     this
-    // }
+	formSubmitHandler = (event) => {
+	event.preventDefault();
+
+	this.props.commentDipatch(this.state.comment)
+	// this.props.getComment(this.state.comment);
+	this.setState({comment: ''});  
+	}
+
+	// buttonSubmit = (event) => {
+	//     this
+	// }
 
     render() {
 
@@ -46,6 +60,12 @@ class CommentBox extends Component {
 }
 
 
+const mapStateToProps = (state) => {
+	return {
+		auth: state
+	}
+};
+
 
 const mapDispatchToProps = (dispatch) => {
     
@@ -56,4 +76,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // export default CommentBox;
-export default connect(null, mapDispatchToProps)(CommentBox);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentBox);

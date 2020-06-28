@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ADD_COMMENT, FETCH_COMMENTS } from 'actions/types';
+import { ADD_COMMENT, FETCH_COMMENTS, AUTH_HANDLER } from 'actions/types';
 
 
 export function addComment(comment) {
@@ -18,9 +18,8 @@ export function fetchComments() {
     }
 }
 
-// export function authHandler() {
-// 	return {
-// 		type: AUTH_HANDLER,
-
-// 	}
-// };
+export function authHandler() {
+ 	return {
+ 		type: AUTH_HANDLER,
+ 	}
+};
