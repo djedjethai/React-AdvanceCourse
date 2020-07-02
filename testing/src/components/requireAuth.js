@@ -1,17 +1,45 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; 
 
 export default (ChildComponent) => {
 	class ComposedComponent extends Component {
+
+		componentDidMount() {
+	       		this.shouldNavigateAway();	
+		};
+        	  
+		componentDidUpdate() {
+		        this.shouldNavigateAway();
+		};
+        	  
+		shouldNavigateAway() {
+		        if (!this.props.auth.auth) {
+		        	this.props.history.push('/');
+		        }
+		}
+
+	
+
 		render() {
-			return <ChildComponent />;
+			return <ChildComponent {...this.props} />;
 		}
 	}
 
-	return ComposedComponent;
+	const mapStateToProps = (state) => {
+		return {
+			auth: state
+		}
+	};
+
+	return connect(mapStateToProps, null)(ComposedComponent);
+
 };
 
 
-// image we are in CommentBox.js
+
+
+
+// imagine we are in CommentBox.js
 // import requireAuth from 'components/requireAuth';
 //
 // class CommentBox{

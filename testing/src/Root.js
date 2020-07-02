@@ -1,7 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reduxPromise from 'redux-promise';
+// import reduxPromise from 'redux-promise'; // is replace by the async middleware
+import async from 'middlewares/async'; 
+import stateValidator from 'middlewares/stateValidator';
 import reducers from 'reducers';
 
 // we destructure the props as we want initialState to get a default value
@@ -10,7 +12,7 @@ const reduxConnect = ({ children, initialState = {} }) => {
     const store = createStore(
         reducers, 
         initialState, 
-        applyMiddleware(reduxPromise)
+        applyMiddleware(stateValidator, async)
     );
     
     return (
