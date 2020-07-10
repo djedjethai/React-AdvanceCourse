@@ -13,26 +13,23 @@ const localOptions = { usernameField: 'email' }
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
 	// verif username and password
 	User.findOne({email: email}, function(err, user) {
-		console.log('find user in db');
-		console.log(user);
 		if (err) { return done(err); };
 
 		if (!user) { return done(null, false); };
 
-		console.log('dans passport');
-		console.log(password);
 		user.comparePassword(password, function(err, isMatch) {
-			console.log('comparepassword passed');
 			if (err) { return done(err); };
 			if (!isMatch) { return done(null, false); };
-			
-			console.log('dans passport retour');
-			console.log(user);
+
+			// through done() Passeport store the 'user' data in req.user
+			// then we can access later on (in the Authentication controller in this case)
 			return done(null, user);
 		} )
 
 	})
 })
+
+
 
 // setup options for jwt strategy
 const jwtOptions = {

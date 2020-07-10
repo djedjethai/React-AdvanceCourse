@@ -11,6 +11,8 @@ const userSchema = new Schema({
 // .pre() is an action wich happend before, so i should be able to use it with bcryptjs package....
 userSchema.pre('save', function(next) {
 	// user become an instance of user model (userSchema)
+	console.log('dans userSchema pre');
+	console.log(this);
 	const user = this;
 
 	// generate a salt then run callback
@@ -32,42 +34,37 @@ userSchema.pre('save', function(next) {
 	});
 });
 
-userSchema.methods.comparePassword = (candidatePassword, callback) => {
-	console.log('dans compare password');
-	console.log(this.password);
-	console.log(candidatePassword);
-	bcrypt.compare(candidatePassword, this.password, function(err, isMatch) { 
-		console.log('euuuuu');
-		console.log(isMatch);
-		if (err) {
-			console.log(err);
- 			return callback(err);
- 		}
- 		
- 		callback(null, isMatch);
- 		
-	});
+userSchema.methods.comparePassword = function (candidatePassword, callback) {
+	// Fonctionne
+	 bcrypt.compare(candidatePassword, this.password, function(err, isMatch) { 
+	 	if (err) {
+ 	 		return callback(err);
+ 	 	}
+ 	 	
+ 	 	callback(null, isMatch);
+ 	 	
+	 });
 
-	// bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-	// 	if (err) {
-	// 		return callback(err);
-	// 	}
-	// 	if (isMatch) {
-	// 		callback(null, isMatch);
-	// 	}
+	// fonctionne egualement
+	 // bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+	 // 	if (err) {
+	 // 		return callback(err);
+	 // 	}
+	 // 	if (isMatch) {
+	 // 		callback(null, isMatch);
+	 // 	}
+	 // })
 
-	// })
-
-	// NE FONCTIONNE PAS
-	// bcrypt.compare(candidatePassword, this.password)
-	// 	.then(isMatch => {
-	//  		console.log('isssMMMatttchhh');
-	//  		callback(null, isMatch);
-	//  	})
-	//  	.catch(e => { 
-	//  		console.log('errror');
-	//  		return callback(e);
-	//  	});
+	// NE FONCTIONNE PAS AS THE FONCTION HAVE NO ACCESS TO THE PREDEFINE CALLBACK
+	 // bcrypt.compare(candidatePassword, this.password)
+	 // 	.then(isMatch => {
+	 //  		console.log('isssMMMatttchhh');
+	 //  		callback(null, isMatch);
+	 //  	})
+	 //  	.catch(e => { 
+	 //  		console.log('errror');
+	 //  		return callback(e);
+	 //  	});
 }
 
 
