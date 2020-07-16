@@ -6,9 +6,13 @@ import * as actions from '../../actions';
 
 
 class Signup extends Component {
-
+	// formProps est issue du, transmit to onSubmit via the method handleSubmit()
+	// this.props.signup comes from the action, wich is link here via the connect()
 	onSubmit = (formProps) => {
-		this.props.signup(formProps);
+		// la callBack doit egualement etre stipule dans l'action creator
+		this.props.signup(formProps, () => {
+			this.props.history.push('/feature');
+		});
 	}
 
 	
